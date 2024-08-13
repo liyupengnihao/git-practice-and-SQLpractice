@@ -1,0 +1,7 @@
+D:\C#语言VS学前练习\C#语言学前练习第十五天（数据库）\多语言支持04\bin\Debug\多语言支持04.exe.config
+D:\C#语言VS学前练习\C#语言学前练习第十五天（数据库）\多语言支持04\bin\Debug\多语言支持04.exe
+D:\C#语言VS学前练习\C#语言学前练习第十五天（数据库）\多语言支持04\bin\Debug\多语言支持04.pdb
+D:\C#语言VS学前练习\C#语言学前练习第十五天（数据库）\多语言支持04\obj\Debug\多语言支持04加数据模型.csproj.AssemblyReference.cache
+D:\C#语言VS学前练习\C#语言学前练习第十五天（数据库）\多语言支持04\obj\Debug\多语言支持04加数据模型.csproj.CoreCompileInputs.cache
+D:\C#语言VS学前练习\C#语言学前练习第十五天（数据库）\多语言支持04\obj\Debug\多语言支持04.exe
+D:\C#语言VS学前练习\C#语言学前练习第十五天（数据库）\多语言支持04\obj\Debug\多语言支持04.pdb

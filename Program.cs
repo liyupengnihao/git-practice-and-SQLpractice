@@ -21,7 +21,7 @@ namespace 多语言支持04
             Console.WriteLine("1：中文 2：English 3：繁体中文,输入错误数字默认为中文");
             string number = Console.ReadLine();
             //  用语音文档
-      
+
             if (number=="2")// 此处的1 2 是分辨语言的，在把对应语言的内容输入进去
             {
                 InfoHelper.Gender1="Male";
@@ -51,8 +51,8 @@ namespace 多语言支持04
 
 
             string sql;
-            DataTable table=null;
-            UserT1Model userTM=new UserT1Model();
+            DataTable table = null;
+            UserT1Model userTM = new UserT1Model();
             //  界面部分
             Console.WriteLine(InfoHelper.Info1);//  下面都可以重复如此
             while (true)
@@ -82,7 +82,7 @@ namespace 多语言支持04
             }
             Console.WriteLine("登录成功");
             Console.WriteLine($"欢迎你登录，尊敬的{userTM.NickName}");//   打出昵称
-                                                                       //  换语言且替换      string类型下有Replace
+                                                             //  换语言且替换      string类型下有Replace
             InfoHelper.Info6=InfoHelper.Info6.Replace("@NickName", userTM.NickName);
             Console.WriteLine(InfoHelper.Info6);
 
@@ -134,10 +134,34 @@ namespace 多语言支持04
 
             }
 
+
             #region 展示数据库中的数据
             sql="select*from UserT1";
             Console.WriteLine("用户名 昵称 性别");
             DataTable tableTwo = SelectData(sql);
+            List<UserT1Model> users = new List<UserT1Model>();
+            for (int i=0;i<tableTwo.Rows.Count;i++)
+            {
+                UserT1Model model = new UserT1Model();
+                model.UsersName=tableTwo.Rows[0]["UsersName"].ToString();
+                model.Password=tableTwo.Rows[0]["Password"].ToString();
+                model.NickName=tableTwo.Rows[0]["NickName"].ToString();
+                model.Gender=tableTwo.Rows[0]["Gender"].ToString();
+                users.Add(model);
+            }
+            for(int i=0;i<users.Count;i++)
+            {
+                if (users[i].Gender=="1")
+                    users[i].Gender=InfoHelper.Gender1;
+                else if (users[i].Gender=="2")
+                    users[i].Gender=InfoHelper.Gender2;
+                else if(users[i].Gender=="3")
+                    users[i].Gender=InfoHelper.Gender3;
+                Console.WriteLine($"{users[i].UsersName}   {users[i].NickName}   {users[i].Gender}");//    $用来字符串拼接
+            }
+
+
+            #region 老版遍历 不显示结果
             for (int i = 0; i<tableTwo.Rows.Count; i++)
             {
                 string genderForSQL = tableTwo.Rows[i]["Gender"].ToString();
@@ -145,7 +169,7 @@ namespace 多语言支持04
                 //  调用语言文档（此处用类InfoHelper）
                 if (genderForSQL=="1")//    此处的1 2是数据库中的1 2（分辨男女的）
                     genderForSQL=InfoHelper.Gender1;
-                else if (genderForSQL=="2")               
+                else if (genderForSQL=="2")
                     genderForSQL=InfoHelper.Gender2;
                 else if (genderForSQL=="3")
                     genderForSQL=InfoHelper.Gender3;
@@ -158,7 +182,7 @@ namespace 多语言支持04
                 //    else if (genderForSQL=="2")
                 //        genderForSQL="女";
                 //}
-               
+
                 //if (language==2)
                 //{
                 //    if (genderForSQL=="1")
@@ -168,8 +192,9 @@ namespace 多语言支持04
                 //}
                 #endregion
 
-                Console.WriteLine($"{tableTwo.Rows[i]["UsersName"]}   {tableTwo.Rows[i]["NickName"]}   {genderForSQL}");//    $用来字符串拼接
+                //Console.WriteLine($"{tableTwo.Rows[i]["UsersName"]}   {tableTwo.Rows[i]["NickName"]}   {genderForSQL}");//    $用来字符串拼接
             }
+            #endregion
             #endregion
 
             Console.ReadKey();
