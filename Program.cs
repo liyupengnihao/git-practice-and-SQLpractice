@@ -50,41 +50,51 @@ namespace 多语言支持04
             }
 
 
-
-
+            string sql;
+            DataTable table=null;
+            UserT1Model userTM=new UserT1Model();
             //  界面部分
             Console.WriteLine(InfoHelper.Info1);//  下面都可以重复如此
-            Console.Write("请输入账号名:");
-            string inputeName = Console.ReadLine();
-            Console.Write("请输入密码:");
-            string inputePwd = Console.ReadLine();
-            string sql;
-
-            sql = $"select*from UserT1 where UsersName='{inputeName}'and Password='{inputePwd}'";
-            DataTable table = SelectData(sql);
-            if (table.Rows.Count<=0)
+            while (true)
             {
-                Console.WriteLine("账号或密码不正确");
-                return;
-            }
-            
-            else
-            {
-                Console.WriteLine("登录成功");
-                Console.WriteLine($"欢迎你登录，尊敬的{table.Rows[0]["NickName"]}");//   打出昵称
-                //  换语言且替换      string类型下有Replace
-                InfoHelper.Info6=InfoHelper.Info6.Replace("@NickName", table.Rows[0]["NickName"].ToString());
-                Console.WriteLine(InfoHelper.Info6);
+                Console.Write("请输入账号名:");
+                string inputeName = Console.ReadLine();
+                Console.Write("请输入密码:");
+                string inputePwd = Console.ReadLine();
+                ;
 
-                Console.WriteLine("你可看到全部的数据，除了密码");
+                sql = $"select*from UserT1 where UsersName='{inputeName}'and Password='{inputePwd}'";
+                table = SelectData(sql);
+                if (table.Rows.Count<=0)
+                {
+                    Console.WriteLine("账号或密码不正确");
+                    return;
+                }
+                else
+                {
+                    //  怕数据库的属性写错
+                    userTM.UsersName=table.Rows[0]["UsersName"].ToString();
+                    userTM.Password=table.Rows[0]["Password"].ToString();
+                    userTM.NickName=table.Rows[0]["NickName"].ToString();
+                    userTM.Gender=table.Rows[0]["Gender"].ToString();
+                    break;
+                }
             }
+            Console.WriteLine("登录成功");
+            Console.WriteLine($"欢迎你登录，尊敬的{userTM.NickName}");//   打出昵称
+                                                                       //  换语言且替换      string类型下有Replace
+            InfoHelper.Info6=InfoHelper.Info6.Replace("@NickName", userTM.NickName);
+            Console.WriteLine(InfoHelper.Info6);
+
+            Console.WriteLine("你可看到全部的数据，除了密码");
+
 
             //  读取性别，如果是空或许null，提醒用户输入信息
-            string gender = table.Rows[0]["Gender"].ToString();
+            string gender = userTM.Gender;
             //  验证用户密码和性别输入
             if (string.IsNullOrEmpty(gender))//  空或者null则返回true
             {
-                Console.WriteLine($"尊敬的{table.Rows[0]["NickName"]}你好，你的消息性别还不完整，请输入性别");
+                Console.WriteLine($"尊敬的{userTM.NickName}你好，你的消息性别还不完整，请输入性别");
                 while (true)
                 {
                     Console.WriteLine("请输入1：男 2：女 3:未知性别");
@@ -106,11 +116,11 @@ namespace 多语言支持04
                     #endregion
 
                     //  再根据性别来更新数据库
-                    string updataGender = $"update UserT1 set Gender='{inputeGender}'where UsersName='{table.Rows[0]["UsersName"]}'";//   更新单一属性下对应主键的数据数据
+                    string updataGender = $"update UserT1 set Gender='{inputeGender}'where UsersName='{userTM.UsersName}'";//   更新单一属性下对应主键的数据数据
                     int count = EditData(updataGender);
                     if (count>0)
                     {
-                        Console.WriteLine($"修改{table.Rows[0]["UsersName"]}的性别成功");
+                        Console.WriteLine($"修改{userTM.UsersName}的性别成功");
                         break;
                     }
                     else

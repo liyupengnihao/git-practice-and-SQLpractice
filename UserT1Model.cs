@@ -8,6 +8,9 @@ namespace 多语言支持04
 {
     internal class UserT1Model
     {
-
+        public string UsersName { get; set; }
+        public string Password { get; set; }
+        public string NickName { get; set; }
+        public string Gender { get; set; }
     }
 }
