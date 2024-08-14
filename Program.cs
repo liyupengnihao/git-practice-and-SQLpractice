@@ -50,7 +50,7 @@ namespace 多语言支持04
             }
             #endregion
 
-            
+
             //  DataTable table = null;//   老版登录界面用
             UserT1Model userTM = null;
             //  界面部分
@@ -61,11 +61,11 @@ namespace 多语言支持04
                 string inputeName = Console.ReadLine();
                 Console.Write("请输入密码:");
                 string inputePwd = Console.ReadLine();
-                
+
 
 
                 userTM=UserT1Operation.Login(inputeName, inputePwd);
-                if(userTM!=null)
+                if (userTM!=null)
                 {
                     break;
                 }
@@ -191,18 +191,29 @@ namespace 多语言支持04
             #endregion
 
 
-
+            //  查询所有数据
             List<UserT1Model> usersOne = UserT1Operation.AllUsers();
 
-            for(int i=0;i<usersOne.Count;i++)
+            for (int i = 0; i<usersOne.Count; i++)
             {
                 if (usersOne[i].Gender=="1")
                     usersOne[i].Gender=InfoHelper.Gender1;
                 else if (usersOne[i].Gender=="2")
                     usersOne[i].Gender=InfoHelper.Gender2;
-                else if(usersOne[i].Gender=="3")
+                else if (usersOne[i].Gender=="3")
                     usersOne[i].Gender=InfoHelper.Gender3;
-                Console.WriteLine($"{usersOne[i].UsersName}   {usersOne[i].NickName}   {usersOne[i].Gender}");//    $用来字符串拼接
+
+                //  查询其成绩
+                List<UserScoresT1Model> usersScore = UserScoresT1Operation.GetScoreByUsersName(usersOne[i].UsersName);
+                Console.WriteLine($"{usersOne[i].UsersName}用户输入成绩如下");
+                Console.WriteLine("入录时间  语文成绩  数学成绩  英语成绩");
+                for (int j=0; j<usersScore.Count; j++)
+                {           
+                   
+                    Console.WriteLine($"{usersOne[i].UsersName}   {usersOne[i].NickName}   {usersOne[i].Gender}   {usersScore[j].RecordTime}   {usersScore[j].Chinese}   {usersScore[j].Math}   {usersScore[j].English}");//    $用来字符串拼接
+                }
+                Console.WriteLine($"{usersOne[i].UsersName}   {usersOne[i].NickName}   {usersOne[i].Gender}");
+
             }
 
 
@@ -219,29 +230,29 @@ namespace 多语言支持04
             //    else if (genderForSQL=="3")
             //        genderForSQL=InfoHelper.Gender3;
 
-                #region 不用语言文档的麻烦用法
-                //if (language==1)
-                //{
-                //    if (genderForSQL=="1")
-                //        genderForSQL="男";
-                //    else if (genderForSQL=="2")
-                //        genderForSQL="女";
-                //}
+            #region 不用语言文档的麻烦用法
+            //if (language==1)
+            //{
+            //    if (genderForSQL=="1")
+            //        genderForSQL="男";
+            //    else if (genderForSQL=="2")
+            //        genderForSQL="女";
+            //}
 
-                //if (language==2)
-                //{
-                //    if (genderForSQL=="1")
-                //        genderForSQL="Male";
-                //    else if (genderForSQL=="2")
-                //        genderForSQL="Famale";                   
-                //}
-                #endregion
+            //if (language==2)
+            //{
+            //    if (genderForSQL=="1")
+            //        genderForSQL="Male";
+            //    else if (genderForSQL=="2")
+            //        genderForSQL="Famale";                   
+            //}
+            #endregion
 
-                //Console.WriteLine($"{tableTwo.Rows[i]["UsersName"]}   {tableTwo.Rows[i]["NickName"]}   {genderForSQL}");//    $用来字符串拼接
+            //Console.WriteLine($"{tableTwo.Rows[i]["UsersName"]}   {tableTwo.Rows[i]["NickName"]}   {genderForSQL}");//    $用来字符串拼接
             //}
             #endregion
             #endregion
             Console.ReadKey();
-        }              
+        }
     }
 }

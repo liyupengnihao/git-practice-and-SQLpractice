@@ -47,6 +47,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQLHelper.cs" />
+    <Compile Include="UserScoresT1Model.cs" />
+    <Compile Include="UserScoresT1Operation.cs" />
     <Compile Include="UserT1Model.cs" />
     <Compile Include="UserT1Operation.cs" />
   </ItemGroup>

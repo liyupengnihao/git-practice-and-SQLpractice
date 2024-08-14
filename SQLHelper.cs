@@ -11,7 +11,7 @@ namespace 多语言支持04
     internal class SQLHelper
     {
         /// <summary>
-        /// 存数据方法
+        /// 存表UserT1数据方法
         /// </summary>
         /// <param name="sql"></param>
         public static int EditData(string sql)
@@ -37,7 +37,7 @@ namespace 多语言支持04
             return count;
         }
         /// <summary>
-        /// 取数据
+        /// 取表UserT1数据方法
         /// </summary>
         /// <param name="sql">查询指令</param>
         /// <returns></returns>
@@ -47,10 +47,10 @@ namespace 多语言支持04
             conn.ConnectionString="Server=localhost;Database=Text;Trusted_Connection=true;";
             conn.Open();
             SqlCommand cmd = new SqlCommand(sql, conn);
-            SqlDataAdapter adapter = new SqlDataAdapter();
+            SqlDataAdapter adapter = new SqlDataAdapter();//    SqlDataAdapter填充DataSet的
             adapter.SelectCommand=cmd;
 
-            DataSet ds = new DataSet();
+            DataSet ds = new DataSet();//   缓存区间
             adapter.Fill(ds);
             conn.Close();
             DataTable dt = new DataTable();

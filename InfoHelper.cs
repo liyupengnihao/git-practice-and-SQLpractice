@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace 多语言支持04
 {
-    internal class InfoHelper
+    internal class InfoHelper// 语言类
     {
         public static string Gender1 { get; set;}
         public static string Gender2 { get; set;}
